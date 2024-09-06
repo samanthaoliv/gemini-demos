@@ -79,7 +79,7 @@ def get_storage_url(gcs_uri: str) -> str:
     return "https://storage.googleapis.com/" + gcs_uri.split("gs://")[1]
 
 
-st.header("Gemini Demos Legais", divider="rainbow")
+st.header("Gemini Demos Muito Legais", divider="rainbow")
 gemini_15_flash, gemini_15_pro = load_models()
 
 tab1, tab2, tab3, tab4 = st.tabs(
