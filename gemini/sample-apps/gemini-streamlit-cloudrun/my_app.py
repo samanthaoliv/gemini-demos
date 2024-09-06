@@ -213,28 +213,28 @@ with tab2:
             st.video(youtube_url)
             st.write("Expectativa: Criar um resumo do video")
 
-        try:
-            transcript = YouTubeTranscriptApi.get_transcript(youtube_url.split("=")[-1])
-            transcript_text = " ".join([entry['text'] for entry in transcript])
+    try:
+        transcript = YouTubeTranscriptApi.get_transcript(youtube_url.split("=")[-1])
+        transcript_text = " ".join([entry['text'] for entry in transcript])
 
-            prompt = f"""Faca um resumo do seguinte video, como se fosse para um site de noticias: 
+        prompt = f"""Faca um resumo do seguinte video, como se fosse para um site de noticias: 
 
-            **Transcricao do video:** {transcript_text}
+        **Transcricao do video:** {transcript_text}
 
-            - Quem sao as pessoas envolvidas? 
-            - Onde aconteceu? 
-            """
+        - Quem sao as pessoas envolvidas? 
+        - Onde aconteceu? 
+           """
 
-            response_tab, prompt_tab = st.tabs(["Response", "Prompt"])
-            vide_desc_description = st.button("Generate video description", key="vide_desc_description")
+        response_tab, prompt_tab = st.tabs(["Response", "Prompt"])
+        vide_desc_description = st.button("Generate video description", key="vide_desc_description")
 
-            if vide_desc_description and youtube_url:
-                with st.spinner(f"Generating video description using {get_model_name(selected_model)} ..."):
-                    response = get_gemini_response(selected_model, [prompt])
+        if vide_desc_description and youtube_url:
+            with st.spinner(f"Generating video description using {get_model_name(selected_model)} ..."):
+                response = get_gemini_response(selected_model, [prompt])
 
-                    with response_tab:
-                        st.markdown(response)
-                        st.markdown("\n\n\n")
+                with response_tab:
+                    st.markdown(response)
+                    st.markdown("\n\n\n")
 
-        except Exception as e:
-            st.error(f"Error processing video: {e}")
+    except Exception as e:
+        st.error(f"Error processing video: {e}")
