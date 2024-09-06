@@ -190,7 +190,7 @@ with tab1:
 
 
 with tab2:
-    st.subheader("Video Playground")
+    st.subheader("Video Discription")
 
     selected_model = st.radio(
         "Select Gemini Model:",
@@ -204,7 +204,7 @@ with tab2:
         ["Video description"]
     )
 
-    with vide_desc:
+    with vide_desc():
         st.markdown(
             """Gemini 1.5 Pro pode criar um resumo do video:"""
         )
