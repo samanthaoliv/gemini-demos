@@ -82,7 +82,7 @@ def get_storage_url(gcs_uri: str) -> str:
 st.header("Gemini Demos Muito Legais", divider="rainbow")
 gemini_15_flash, gemini_15_pro = load_models()
 
-tab1, tab2, tab3, tab4 = st.tabs(
+tab1, tab2 = st.tabs(
     ["Gerar uma historia", "Video Playground"]
 )
 
@@ -158,9 +158,9 @@ with tab1:
     localizacao do personagem: {character_location} \n
     premissa da historia: {",".join(story_premise)} \n
     Se a história for "curta", certifique-se de ter 5 capítulos ou então se for "longa", então 10 capítulos.
-O ponto importante é que cada capítulo deve ser gerado com base na premissa dada acima.
-Primeiro comece dando a introdução do livro, introduções dos capítulos e então cada capítulo. Ele também deve ter um final apropriado.
-O livro deve ter prólogo e epílogo.
+    O ponto importante é que cada capítulo deve ser gerado com base na premissa dada acima.
+    Primeiro comece dando a introdução do livro, introduções dos capítulos e então cada capítulo. Ele também deve ter um final apropriado.
+    O livro deve ter prólogo e epílogo.
     """
     config = GenerationConfig(
         temperature=temperature, max_output_tokens=max_output_tokens
