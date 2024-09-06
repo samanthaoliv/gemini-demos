@@ -205,16 +205,6 @@ with tab2:
     )
 
 
-with tab2:  # Aba principal "Video Discription"
-    st.subheader("Video Discription")
-
-    selected_model = st.radio(
-        "Select Gemini Model:",
-        [gemini_15_flash, gemini_15_pro],
-        format_func=get_model_name,
-        key="selected_model_video",
-        horizontal=True,
-    )
 
     video_desc_tab = st.tabs(["Video description"])[0]  # Obtém a única aba criada
 
