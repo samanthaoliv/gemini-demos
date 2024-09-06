@@ -74,9 +74,9 @@ def get_model_name(model: GenerativeModel) -> str:
     return f"`{model_name}`"
 
 
-def get_storage_url(gcs_uri: str) -> str:
-    """Convert a GCS URI to a storage URL."""
-    return "https://storage.googleapis.com/" + gcs_uri.split("gs://")[1]
+#def get_storage_url(gcs_uri: str) -> str:
+#    """Convert a GCS URI to a storage URL."""
+#    return "https://storage.googleapis.com/" + gcs_uri.split("gs://")[1]
 
 
 st.header("Gemini Demos Muito Legais", divider="rainbow")
@@ -157,10 +157,10 @@ with tab1:
     personalidade do personagem: {character_persona} \n
     localizacao do personagem: {character_location} \n
     premissa da historia: {",".join(story_premise)} \n
-    Se a história for "curta", certifique-se de ter 5 capítulos ou então se for "longa", então 10 capítulos.
-    O ponto importante é que cada capítulo deve ser gerado com base na premissa dada acima.
-    Primeiro comece dando a introdução do livro, introduções dos capítulos e então cada capítulo. Ele também deve ter um final apropriado.
-    O livro deve ter prólogo e epílogo.
+    Se a historia for "curta", certifique-se de ter 5 capitulos ou entao se for "longa", entao 10 capitulos.
+    O ponto importante e que cada capitulo deve ser gerado com base na premissa dada acima.
+    Primeiro comece dando a introducao do livro, introducoes dos capitulos e entao cada capitulo. Ele tambem deve ter um final apropriado.
+    O livro deve ter prologo e epilogo.
     """
     config = GenerationConfig(
         temperature=temperature, max_output_tokens=max_output_tokens
@@ -210,14 +210,14 @@ with tab2:
         )
 
         # Campo para inserir a URL do YouTube
-        youtube_url = st.text_input("Insira a URL do vídeo do YouTube:") 
+        youtube_url = st.text_input("Insira a URL do video do YouTube:") 
 
         if youtube_url:
             # Incorpora o vídeo do YouTube
             st.video(youtube_url) 
             st.write("Expectativa: Crie um resumo do video")
-            prompt = """Faça um resumo do video, como se fosse para um site de noticias: \n
-            - Quem são as pessoas envolvidas? \n
+            prompt = """Faca um resumo do video, como se fosse para um site de noticias: \n
+            - Quem sao as pessoas envolvidas? \n
             - Onde aconteceu? \n
             """
             tab1, tab2 = st.tabs(["Response", "Prompt"])
