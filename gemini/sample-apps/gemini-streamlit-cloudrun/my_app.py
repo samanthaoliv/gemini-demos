@@ -200,7 +200,7 @@ with tab2:
         horizontal=True,
     )
 
-    vide_desc, video_tags, video_highlights, video_geolocation = st.tabs(
+    vide_desc = st.tabs(
         ["Video description"]
     )
 
