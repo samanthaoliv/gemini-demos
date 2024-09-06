@@ -204,36 +204,45 @@ with tab2:
         ["Video description"]
     )
 
-    with vide_desc():
-        st.markdown(
-            """Gemini 1.5 Pro pode criar um resumo do video:"""
-        )
 
-        # Campo para inserir a URL do YouTube
-        youtube_url = st.text_input("Insira a URL do video do YouTube:") 
+with tab2:  # Aba principal "Video Discription"
+    st.subheader("Video Discription")
+
+    selected_model = st.radio(
+        "Select Gemini Model:",
+        [gemini_15_flash, gemini_15_pro],
+        format_func=get_model_name,
+        key="selected_model_video",
+        horizontal=True,
+    )
+
+    video_desc_tab = st.tabs(["Video description"])[0]  # Obtém a única aba criada
+
+    with video_desc_tab:  # Usa a aba diretamente
+        st.markdown("""Gemini 1.5 Pro pode criar um resumo do video:""")
+
+        youtube_url = st.text_input("Insira a URL do video do YouTube:")
 
         if youtube_url:
-            # Incorpora o vídeo do YouTube
-            st.video(youtube_url) 
+            st.video(youtube_url)
             st.write("Expectativa: Crie um resumo do video")
             prompt = """Faca um resumo do video, como se fosse para um site de noticias: \n
             - Quem sao as pessoas envolvidas? \n
             - Onde aconteceu? \n
             """
-            tab1, tab2 = st.tabs(["Response", "Prompt"])
-            vide_desc_description = st.button(
-                "Generate video description", key="vide_desc_description"
-            )
-            with tab1:
-                if vide_desc_description and prompt:
-                    with st.spinner(
-                        f"Generating video description using {get_model_name(selected_model)} ..."
-                    ):
-                        response = get_gemini_response(
-                            selected_model, [prompt, vide_desc_img]
-                        )
+
+            response_tab, prompt_tab = st.tabs(["Response", "Prompt"])
+            vide_desc_description = st.button("Generate video description", key="vide_desc_description")
+
+            if vide_desc_description and youtube_url:
+                with st.spinner(f"Generating video description using {get_model_name(selected_model)} ..."):
+                    # ... (obtenha vide_desc_img de alguma forma, se necessário)
+                    response = get_gemini_response(selected_model, [prompt, vide_desc_img])
+
+                    with response_tab:
                         st.markdown(response)
                         st.markdown("\n\n\n")
-            with tab2:
+
+            with prompt_tab:
                 st.write("Prompt used:")
                 st.write(prompt, "\n", "{video_data}")
