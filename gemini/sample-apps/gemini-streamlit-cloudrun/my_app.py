@@ -204,10 +204,6 @@ with tab2:
         ["Video description"]
     )
 
-
-
-    video_desc_tab = st.tabs(["Video description"])[0]  # Obtém a única aba criada
-
     with video_desc_tab:  # Usa a aba diretamente
         st.markdown("""Gemini 1.5 Pro pode criar um resumo do video:""")
 
@@ -226,8 +222,7 @@ with tab2:
 
             if vide_desc_description and youtube_url:
                 with st.spinner(f"Generating video description using {get_model_name(selected_model)} ..."):
-                    # ... (obtenha vide_desc_img de alguma forma, se necessário)
-                    response = get_gemini_response(selected_model, [prompt, vide_desc_img])
+                    response = get_gemini_response(selected_model, [prompt, vide_desc_description])
 
                     with response_tab:
                         st.markdown(response)
