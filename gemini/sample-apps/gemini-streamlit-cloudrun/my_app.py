@@ -6,6 +6,7 @@ This module demonstrates the usage of the Vertex AI Gemini 1.5 API within a Stre
 import os
 from typing import List, Tuple, Union
 
+from youtube_transcript_api import YouTubeTranscriptApi
 import streamlit as st
 import vertexai
 from vertexai.generative_models import (
@@ -211,23 +212,29 @@ with tab2:
         if youtube_url:
             st.video(youtube_url)
             st.write("Expectativa: Crie um resumo do video")
-            prompt = """Faca um resumo do video, como se fosse para um site de noticias: \n
-            - Quem sao as pessoas envolvidas? \n
-            - Onde aconteceu? \n
-            """
 
-            response_tab, prompt_tab = st.tabs(["Response", "Prompt"])
-            vide_desc_description = st.button("Generate video description", key="vide_desc_description")
+    try:
+        transcript = YouTubeTranscriptApi.get_transcript(youtube_url.split("=")[-1])
+        transcript_text = " ".join([entry['text'] for entry in transcript])
 
-            if vide_desc_description and youtube_url:
-                with st.spinner(f"Generating video description using {get_model_name(selected_model)} ..."):
-                    # ... (obtenha vide_desc_img de alguma forma, se necessário)
-                    response = get_gemini_response(selected_model, [prompt, youtube_url])
+        prompt = f"""Faca um resumo do seguinte video, como se fosse para um site de noticias: 
 
-                    with response_tab:
-                        st.markdown(response)
-                        st.markdown("\n\n\n")
+        **Transcricao do video:** {transcript_text}
 
-            with prompt_tab:
-                st.write("Prompt used:")
-                st.write(prompt, "\n", "{video_data}")
+        - Quem sao as pessoas envolvidas? 
+        - Onde aconteceu? 
+        """
+
+        response_tab, prompt_tab = st.tabs(["Response", "Prompt"])
+        vide_desc_description = st.button("Generate video description", key="vide_desc_description")
+
+        if vide_desc_description and youtube_url:
+            with st.spinner(f"Generating video description using {get_model_name(selected_model)} ..."):
+                response = get_gemini_response(selected_model, [prompt])
+
+                with response_tab:
+                    st.markdown(response)
+                    st.markdown("\n\n\n")
+
+    except Exception as e:
+        st.error(f"Error processing video: {e}")
