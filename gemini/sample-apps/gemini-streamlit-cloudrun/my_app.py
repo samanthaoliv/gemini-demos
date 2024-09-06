@@ -222,7 +222,7 @@ with tab2:
             if vide_desc_description and youtube_url:
                 with st.spinner(f"Generating video description using {get_model_name(selected_model)} ..."):
                     # ... (obtenha vide_desc_img de alguma forma, se necessário)
-                    response = get_gemini_response(selected_model, [prompt, vide_desc_description])
+                    response = get_gemini_response(selected_model, [prompt, youtube_url])
 
                     with response_tab:
                         st.markdown(response)
