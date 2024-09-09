@@ -206,7 +206,7 @@ with tab2:
     video_desc_tab = st.tabs(["Video description"])[0]  # Obtém a única aba criada
 
     with tab2:
-    st.subheader("Descrição do Vídeo")
+        st.subheader("Descrição do Vídeo")
 
     selected_model = st.radio(
         "Selecione o Modelo Gemini:",
