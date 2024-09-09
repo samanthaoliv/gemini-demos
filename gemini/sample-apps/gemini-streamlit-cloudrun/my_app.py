@@ -6,6 +6,7 @@ This module demonstrates the usage of the Vertex AI Gemini 1.5 API within a Stre
 import os
 from typing import List, Tuple, Union
 
+import base64
 from youtube_transcript_api import YouTubeTranscriptApi
 import streamlit as st
 import vertexai
@@ -204,37 +205,52 @@ with tab2:
 
     video_desc_tab = st.tabs(["Video description"])[0]  # Obtém a única aba criada
 
-    with video_desc_tab:  # Usa a aba diretamente
-        st.markdown("""Gemini 1.5 Pro pode criar um resumo do video:""")
+    with tab2:
+    st.subheader("Descrição do Vídeo")
 
-        youtube_url = st.text_input("Insira a URL do video do YouTube:")
+    selected_model = st.radio(
+        "Selecione o Modelo Gemini:",
+        [gemini_15_flash, gemini_15_pro],
+        format_func=get_model_name,
+        key="selected_model_video",
+        horizontal=True,
+    )
 
-        if youtube_url:
-            st.video(youtube_url)
-            st.write("Expectativa: Criar um resumo do video")
+    video_desc_tab = st.tabs(["Descrição do Vídeo"])[0]
 
-    try:
-        transcript = YouTubeTranscriptApi.get_transcript(youtube_url.split("=")[-1])
-        transcript_text = " ".join([entry['text'] for entry in transcript])
+    with video_desc_tab:
+        st.markdown("""Gemini 1.5 Pro pode criar um texto a partir do vídeo:""")
 
-        prompt = f"""Faca um resumo do seguinte video, como se fosse para um site de noticias: 
+        video1 = Part.from_uri(
+            mime_type="video/mp4",
+            uri="gs://news-videofiles/news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4")
 
-        **Transcricao do video:** {transcript_text}
+        st.video(video1)
 
-        - Quem sao as pessoas envolvidas? 
-        - Onde aconteceu? 
-           """
+        transcription_prompt = f"""Transcreva o seguinte vídeo em português: {video1}"""
 
-        response_tab, prompt_tab = st.tabs(["Response", "Prompt"])
-        vide_desc_description = st.button("Generate video description", key="vide_desc_description")
+        try:
+            with st.spinner("Gerando transcrição do vídeo usando Gemini..."):
+                transcript_text = get_gemini_response(selected_model, [transcription_prompt])
 
-        if vide_desc_description and youtube_url:
-            with st.spinner(f"Generating video description using {get_model_name(selected_model)} ..."):
-                response = get_gemini_response(selected_model, [prompt])
+            prompt = f"""Faça um resumo do seguinte vídeo, como se fosse para um site de notícias:
 
-                with response_tab:
-                    st.markdown(response)
-                    st.markdown("\n\n\n")
+            **Transcrição do vídeo:** {transcript_text}
 
-    except Exception as e:
-        st.error(f"Error processing video: {e}")
+            - Quem são as pessoas envolvidas?
+            - Onde aconteceu?
+            """
+
+            response_tab, prompt_tab = st.tabs(["Resposta", "Prompt"])
+            vide_desc_description = st.button("Gerar descrição do vídeo", key="vide_desc_description")
+
+            if vide_desc_description:
+                with st.spinner(f"Gerando descrição do vídeo usando {get_model_name(selected_model)} ..."):
+                    response = get_gemini_response(selected_model, [prompt])
+
+                    with response_tab:
+                        st.markdown(response)
+                        st.markdown("\n\n\n")
+
+        except Exception as e:
+            st.error(f"Erro ao processar o vídeo: {e}")
