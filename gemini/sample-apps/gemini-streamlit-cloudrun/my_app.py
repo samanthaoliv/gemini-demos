@@ -6,6 +6,8 @@ This module demonstrates the usage of the Vertex AI Gemini 1.5 API within a Stre
 import os
 from typing import List, Tuple, Union
 
+from google.cloud import storage
+
 import base64
 import streamlit as st
 import vertexai
@@ -29,6 +31,14 @@ def load_models() -> Tuple[GenerativeModel, GenerativeModel]:
     return GenerativeModel("gemini-1.5-flash-001"), GenerativeModel(
         "gemini-1.5-pro-001"
     )
+
+def download_blob_into_memory(bucket_name, blob_name):
+    """Downloads a blob from the bucket into memory."""
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(bucket_name)
+    blob = bucket.blob(blob_name)
+    return blob.download_as_bytes()
+
 
 
 def get_gemini_response(
@@ -209,8 +219,13 @@ with tab2:
         video1 = Part.from_uri(
             mime_type="video/mp4",
             uri="gs://news-videofiles/news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4")
+        
+        # Download video data
+        bucket_name = "news-videofiles"
+        blob_name = "news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4"
+        video_data = download_blob_into_memory(bucket_name, blob_name)
 
-        st.video(video1)
+        st.video(video_data)
 
         transcription_prompt = f"""Transcreva o seguinte vídeo em português: {video1}"""
 
