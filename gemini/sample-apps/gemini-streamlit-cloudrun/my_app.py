@@ -221,14 +221,6 @@ with tab2:
         st.video(video_bytes)
 
         try:
-            
-            # Exibe o vídeo diretamente da URI do GCS
-            try:
-                st.video(vide_desc_uri)  # Exibe o vídeo usando os dados baixados
-            except FileNotFoundError:
-                st.error("O arquivo de vídeo especificado não foi encontrado. Verifique o caminho do arquivo e tente novamente.")
-            except Exception as e:
-                st.error(f"Ocorreu um erro ao processar o vídeo: {e}")
 
             st.write("Expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
             prompt = """Descreva o que está acontecendo no vídeo e escreva uma materia de jornal: \n
