@@ -98,10 +98,10 @@ tab1, tab2 = st.tabs(
 )
 
 with tab1:
-    st.subheader("Generate a story")
+    st.subheader("Criar uma historia")
 
     selected_model = st.radio(
-        "Select Gemini Model:",
+        "Escolha o modelo Gemini que você quer usar:",
         [gemini_15_flash, gemini_15_pro],
         format_func=get_model_name,
         key="selected_model_story",
@@ -209,7 +209,7 @@ def download_blob_into_memory(bucket_name, blob_name):
     return blob.download_as_bytes()
 
 with tab2:
-    st.subheader("Descrição do Vídeo")
+    st.subheader("Descrição de videos")
 
     selected_model = st.radio(
         "Selecione o Modelo Gemini:",
@@ -219,10 +219,10 @@ with tab2:
         horizontal=True,
     )
 
-    video_desc_tab = st.tabs(["Descrição do Vídeo"])[0]
+    video_desc_tab = st.tabs(["Descrição de Vídeo"])[0]
 
     with video_desc_tab:
-        st.markdown("""O Gemini 1.5 Pro também pode fornecer uma descrição do que está acontecendo no vídeo:""")
+        st.markdown("""O Gemini pode gerar a descrição deo que está acontecendo no vídeo:""")
 
         vide_desc_uri = "gs://news-videofiles/news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4"
 
@@ -234,11 +234,11 @@ with tab2:
         if vide_desc_uri:
             vide_desc_img = Part.from_uri(vide_desc_uri, mime_type="video/mp4")
             st.video(video_data)  # Exibe o vídeo usando os dados baixados
-            st.write("Nossa expectativa: Gerar a descrição do vídeo")
-            prompt = """Descreva o que está acontecendo no vídeo e responda às seguintes perguntas: \n
-            - O que estou vendo? \n
-            - Onde devo ir para ver isso? \n
-            - Quais são os outros 5 melhores lugares do mundo que se parecem com isso?
+            st.write("Nossa expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
+            prompt = """Descreva o que está acontecendo no vídeo e escreva uma materia de jornal: \n
+            - O que aconteceu? \n
+            - quem são as pessoas envolvidas? \n
+            - Onde aconteceu?
             """
             tab1, tab2 = st.tabs(["Resposta", "Prompt"])
             vide_desc_description = st.button(
