@@ -238,16 +238,7 @@ with tab2:
                     with st.spinner(
                         f"Generating video description using {get_model_name(selected_model)} ..."
                     ):
-                        # Lógica para obter a descrição do vídeo usando o modelo selecionado
-                        # (você precisará implementar essa parte)
-
-                        # Se get_gemini_response espera um objeto Part:
-                        # video_bytes = download_blob_into_memory("videos-news", "Falso comerciante é preso em Pouso Alegre.mp4")
-                        # vide_desc_img = Part.from_bytes(video_bytes, mime_type="video/mp4")
-                        # response = get_gemini_response(selected_model, [prompt, vide_desc_img]) 
-
-                        # Se get_gemini_response espera a URI do vídeo:
-                        response = get_gemini_response(selected_model, [prompt, vide_desc_description]) 
+                        response = get_gemini_response(selected_model, [prompt, video_bytes]) 
 
                         st.markdown(response)
                         st.markdown("\n\n\n")
