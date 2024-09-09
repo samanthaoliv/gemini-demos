@@ -238,10 +238,13 @@ with tab2:
                     with st.spinner(
                         f"Generating video description using {get_model_name(selected_model)} ..."
                     ):
-                        response = get_gemini_response(selected_model, [prompt, video_bytes]) 
-
-                        st.markdown(response)
-                        st.markdown("\n\n\n")
+                        
+                            try:
+                                response = get_gemini_response(selected_model, [prompt])  # Somente o prompt
+                                st.markdown(response)
+                            except Exception as e:
+                                st.error(f"Erro ao gerar descrição: {e}")
+                       
 
             with tab2:
                 st.write("Prompt utilizado:")
