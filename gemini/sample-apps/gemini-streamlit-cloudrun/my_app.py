@@ -7,7 +7,6 @@ import os
 from typing import List, Tuple, Union
 
 import base64
-from youtube_transcript_api import YouTubeTranscriptApi
 import streamlit as st
 import vertexai
 from vertexai.generative_models import (
