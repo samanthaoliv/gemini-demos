@@ -215,7 +215,7 @@ with tab2:
     with video_desc_tab:
         st.markdown("""O Gemini pode gerar a descrição do que está acontecendo no vídeo:""")
 
-        vide_desc_uri = "gs://videos-news/Falso comerciante é preso em Pouso Alegre.mp4"
+        vide_desc_uri = "gs://videos-news/*.mp4"
 
         try:
             
