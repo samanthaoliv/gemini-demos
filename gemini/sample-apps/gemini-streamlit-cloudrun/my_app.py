@@ -225,7 +225,7 @@ with tab2:
         st.markdown("""O Gemini pode gerar a descrição do que está acontecendo no vídeo:""")
 
         vide_desc_uri = "gs://news-videofiles/news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4"
-
+        st.write(vide_desc_uri)
         if vide_desc_uri:
 
             def get_video_bytes_from_gcs(uri):
