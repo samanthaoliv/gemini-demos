@@ -216,24 +216,25 @@ with tab2:
     with video_desc_tab:
         st.markdown("""Gemini 1.5 Pro pode criar um texto a partir do vídeo:""")
 
-        video1 = Part.from_uri(
-            mime_type="video/mp4",
-            uri="gs://news-videofiles/news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4")
+
+    video1 = Part.from_uri(
+        mime_type="video/mp4",
+        uri="gs://news-videofiles/news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4")
         
         # Download video data
-        bucket_name = "news-videofiles"
-        blob_name = "news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4"
-        video_data = download_blob_into_memory(bucket_name, blob_name)
+    bucket_name = "news-videofiles"
+    blob_name = "news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4"
+    video_data = download_blob_into_memory(bucket_name, blob_name)
 
-        st.video(video_data)
+    st.video(video_data)
 
-        transcription_prompt = f"""Transcreva o seguinte vídeo em português: {video1}"""
+    transcription_prompt = f"""Transcreva o seguinte vídeo em português: {video1}"""
 
-        try:
-            with st.spinner("Gerando transcrição do vídeo usando Gemini..."):
-                transcript_text = get_gemini_response(selected_model, [transcription_prompt])
+    try:
+        with st.spinner("Gerando transcrição do vídeo usando Gemini..."):
+            transcript_text = get_gemini_response(selected_model, [transcription_prompt])
 
-            prompt = f"""Faça um resumo do seguinte vídeo, como se fosse para um site de notícias:
+        prompt = f"""Faça um resumo do seguinte vídeo, como se fosse para um site de notícias:
 
             **Transcrição do vídeo:** {transcript_text}
 
@@ -241,16 +242,16 @@ with tab2:
             - Onde aconteceu?
             """
 
-            response_tab, prompt_tab = st.tabs(["Resposta", "Prompt"])
-            vide_desc_description = st.button("Gerar descrição do vídeo", key="vide_desc_description")
+        response_tab, prompt_tab = st.tabs(["Resposta", "Prompt"])
+        vide_desc_description = st.button("Gerar descrição do vídeo", key="vide_desc_description")
 
-            if vide_desc_description:
-                with st.spinner(f"Gerando descrição do vídeo usando {get_model_name(selected_model)} ..."):
-                    response = get_gemini_response(selected_model, [prompt])
+        if vide_desc_description:
+            with st.spinner(f"Gerando descrição do vídeo usando {get_model_name(selected_model)} ..."):
+                response = get_gemini_response(selected_model, [prompt])
 
-                    with response_tab:
-                        st.markdown(response)
-                        st.markdown("\n\n\n")
+                with response_tab:
+                    st.markdown(response)
+                    st.markdown("\n\n\n")
 
-        except Exception as e:
-            st.error(f"Erro ao processar o vídeo: {e}")
+    except Exception as e:
+        st.error(f"Erro ao processar o vídeo: {e}")
