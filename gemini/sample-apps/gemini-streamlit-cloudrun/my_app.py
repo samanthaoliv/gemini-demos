@@ -226,11 +226,6 @@ with tab2:
 
         vide_desc_uri = "gs://news-videofiles/news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4"
 
-        # Baixar os dados do vídeo
-        bucket_name = "news-videofiles"
-        blob_name = "news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4"
-        video_data = download_blob_into_memory(bucket_name, blob_name)
-
         if vide_desc_uri:
             vide_desc_img = Part.from_uri(vide_desc_uri, mime_type="video/mp4")
             st.video(video_data)  # Exibe o vídeo usando os dados baixados
