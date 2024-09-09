@@ -221,14 +221,9 @@ with tab2:
 
     video_desc_tab = st.tabs(["Descrição de Vídeo"])[0]
 
-    with video_desc_tab:
-        st.markdown("""O Gemini pode gerar a descrição do que está acontecendo no vídeo:""")
-
-        vide_desc_uri = "gs://news-videofiles/news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4"
-
-        if vide_desc_uri:
+    if vide_desc_uri:
             vide_desc_img = Part.from_uri(vide_desc_uri, mime_type="video/mp4")
-            st.video(video_data)  # Exibe o vídeo usando os dados baixados
+            st.video(vide_desc_uri)  # Exibe o vídeo usando os dados baixados
             st.write("Expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
             prompt = """Descreva o que está acontecendo no vídeo e escreva uma materia de jornal: \n
             - O que aconteceu? \n
@@ -242,8 +237,12 @@ with tab2:
             with tab1:
                 if vide_desc_description and prompt:
                     with st.spinner(
-                        f"Gerando descrição do vídeo usando {get_model_name(selected_model)} ..."
+                        f"Generating video description using {get_model_name(selected_model)} ..."
                     ):
+                        # Fetch video data from GCS
+                        video_bytes = get_video_bytes_from_gcs(vide_desc_uri)  # Implement this function
+                        vide_desc_img = Part.from_bytes(video_bytes, mime_type="video/mp4")
+
                         response = get_gemini_response(
                             selected_model, [prompt, vide_desc_img]
                         )
