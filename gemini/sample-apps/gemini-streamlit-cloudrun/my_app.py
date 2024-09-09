@@ -247,7 +247,7 @@ with tab2:
                         # response = get_gemini_response(selected_model, [prompt, vide_desc_img]) 
 
                         # Se get_gemini_response espera a URI do vídeo:
-                        response = get_gemini_response(selected_model, [prompt, vide_desc_uri]) 
+                        response = get_gemini_response(selected_model, [prompt, video_bytes]) 
 
                         st.markdown(response)
                         st.markdown("\n\n\n")
