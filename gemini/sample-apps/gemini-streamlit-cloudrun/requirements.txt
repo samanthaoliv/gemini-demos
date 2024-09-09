@@ -1,3 +1,4 @@
 streamlit
 google-cloud-aiplatform
 google-cloud-logging
+youtube-transcript-api>=0.6.2
