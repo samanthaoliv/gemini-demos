@@ -32,15 +32,6 @@ def load_models() -> Tuple[GenerativeModel, GenerativeModel]:
         "gemini-1.5-pro-001"
     )
 
-def download_blob_into_memory(bucket_name, blob_name):
-    """Downloads a blob from the bucket into memory."""
-    storage_client = storage.Client()
-    bucket = storage_client.bucket(bucket_name)
-    blob = bucket.blob(blob_name)
-    return blob.download_as_bytes()
-
-
-
 def get_gemini_response(
     model: GenerativeModel,
     contents: Union[str, List],
@@ -202,11 +193,11 @@ with tab1:
 
 
 def download_blob_into_memory(bucket_name, blob_name):
-    """Baixa um blob do bucket para a memória."""
+    """Downloads a blob from the bucket into memory."""
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(blob_name)
-    return blob.download_as_bytes()
+    return blob.download_as_bytes()   1. github.com github.com
 
 with tab2:
     st.subheader("Descrição de videos")
@@ -225,28 +216,44 @@ with tab2:
         st.markdown("""O Gemini pode gerar a descrição do que está acontecendo no vídeo:""")
 
         vide_desc_uri = "gs://videos-news/Falso comerciante é preso em Pouso Alegre.mp4"
-        vide_desc_img = Part.from_uri(vide_desc_uri, mime_type="video/mp4")
-        st.video(vide_desc_uri)  # Exibe o vídeo usando os dados baixados
-        st.write("Expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
-        prompt = """Descreva o que está acontecendo no vídeo e escreva uma materia de jornal: \n
-                - O que aconteceu? \n
-                - quem são as pessoas envolvidas? \n
-                - Onde aconteceu?
-                """
-        tab1, tab2 = st.tabs(["Resposta", "Prompt"])
-        vide_desc_description = st.button(
-                    "Gerar descrição do vídeo", key="vide_desc_description"
-            )
-        with tab1:
-            if vide_desc_description and prompt:
-                with st.spinner(
-                    f"Generating video description using {get_model_name(selected_model)} ..."
-                    ):
 
-                    response = get_gemini_response(
-                         selected_model, [prompt, vide_desc_img]
-                        )
-                    st.markdown(response)
-                    st.markdown("\n\n\n")
-                    with tab2:
-                        st.write("Prompt utilizado:")
+        try:
+            # Exibe o vídeo diretamente da URI do GCS
+            st.video(vide_desc_uri)  
+
+            st.write("Expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
+            prompt = """Descreva o que está acontecendo no vídeo e escreva uma materia de jornal: \n
+                    - O que aconteceu? \n
+                    - quem são as pessoas envolvidas? \n
+                    - Onde aconteceu?
+                    """
+            tab1, tab2 = st.tabs(["Resposta", "Prompt"])
+            vide_desc_description = st.button(
+                "Gerar descrição do vídeo", key="vide_desc_description"
+            )
+
+            with tab1:
+                if vide_desc_description and prompt:
+                    with st.spinner(
+                        f"Generating video description using {get_model_name(selected_model)} ..."
+                    ):
+                        # Lógica para obter a descrição do vídeo usando o modelo selecionado
+                        # (você precisará implementar essa parte)
+
+                        # Se get_gemini_response espera um objeto Part:
+                        # video_bytes = download_blob_into_memory("videos-news", "Falso comerciante é preso em Pouso Alegre.mp4")
+                        # vide_desc_img = Part.from_bytes(video_bytes, mime_type="video/mp4")
+                        # response = get_gemini_response(selected_model, [prompt, vide_desc_img]) 
+
+                        # Se get_gemini_response espera a URI do vídeo:
+                        response = get_gemini_response(selected_model, [prompt, vide_desc_uri]) 
+
+                        st.markdown(response)
+                        st.markdown("\n\n\n")
+
+            with tab2:
+                st.write("Prompt utilizado:")
+                st.write(prompt)
+
+        except Exception as e:
+            st.error(f"Ocorreu um erro ao processar o vídeo: {e}")
