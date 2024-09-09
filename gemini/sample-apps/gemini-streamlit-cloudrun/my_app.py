@@ -206,7 +206,7 @@ def download_blob_into_memory(bucket_name, blob_name):
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(blob_name)
-    return blob.download_as_bytes()   1. github.com github.com
+    return blob.download_as_bytes()
 
 with tab2:
     st.subheader("Descrição do Vídeo")
