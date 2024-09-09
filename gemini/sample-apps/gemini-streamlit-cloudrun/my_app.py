@@ -221,7 +221,12 @@ with tab2:
 
     video_desc_tab = st.tabs(["Descrição de Vídeo"])[0]
 
-    if vide_desc_uri:
+    with video_desc_tab:
+        st.markdown("""O Gemini pode gerar a descrição do que está acontecendo no vídeo:""")
+
+        vide_desc_uri = "gs://news-videofiles/news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4"
+
+        if vide_desc_uri:
             vide_desc_img = Part.from_uri(vide_desc_uri, mime_type="video/mp4")
             st.video(vide_desc_uri)  # Exibe o vídeo usando os dados baixados
             st.write("Expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
@@ -250,4 +255,3 @@ with tab2:
                         st.markdown("\n\n\n")
             with tab2:
                 st.write("Prompt utilizado:")
-                st.write(prompt, "\n", "{video_data}")
