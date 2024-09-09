@@ -219,7 +219,7 @@ with tab2:
 
         video_bytes = download_blob_into_memory("videos-news", "15 segundos para ver este impresionante vídeo.mp4")
         st.video(video_bytes)
-
+        video_part = Part.from_bytes(video_bytes, mime_type="video/mp4")
         try:
 
             st.write("Expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
@@ -240,7 +240,7 @@ with tab2:
                     ):
                         
                             try:
-                                response = get_gemini_response(selected_model, [prompt, vide_desc_uri])  # Somente o prompt
+                                response = get_gemini_response(selected_model, [prompt, video_part])  # Somente o prompt
                                 st.markdown(response)
                             except Exception as e:
                                 st.error(f"Erro ao gerar descrição: {e}")
