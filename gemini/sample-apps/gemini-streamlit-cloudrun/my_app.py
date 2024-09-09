@@ -94,11 +94,11 @@ st.header("Gemini Demos Muito Legais", divider="rainbow")
 gemini_15_flash, gemini_15_pro = load_models()
 
 tab1, tab2 = st.tabs(
-    ["Gerar uma historia", "Video Playground"]
+    ["Gerar uma história", "Gerar Descrição de Vídeos"]
 )
 
 with tab1:
-    st.subheader("Criar uma historia")
+    st.subheader("Criar uma história")
 
     selected_model = st.radio(
         "Escolha o modelo Gemini que você quer usar:",
@@ -222,7 +222,7 @@ with tab2:
     video_desc_tab = st.tabs(["Descrição de Vídeo"])[0]
 
     with video_desc_tab:
-        st.markdown("""O Gemini pode gerar a descrição deo que está acontecendo no vídeo:""")
+        st.markdown("""O Gemini pode gerar a descrição do que está acontecendo no vídeo:""")
 
         vide_desc_uri = "gs://news-videofiles/news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4"
 
@@ -234,7 +234,7 @@ with tab2:
         if vide_desc_uri:
             vide_desc_img = Part.from_uri(vide_desc_uri, mime_type="video/mp4")
             st.video(video_data)  # Exibe o vídeo usando os dados baixados
-            st.write("Nossa expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
+            st.write("Expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
             prompt = """Descreva o que está acontecendo no vídeo e escreva uma materia de jornal: \n
             - O que aconteceu? \n
             - quem são as pessoas envolvidas? \n
