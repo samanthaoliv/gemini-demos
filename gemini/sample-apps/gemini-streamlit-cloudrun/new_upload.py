@@ -81,9 +81,8 @@ def get_storage_url(gcs_uri: str) -> str:
 st.header("Site da Gabriela", divider="rainbow")
 gemini_15_flash, gemini_15_pro = load_models()
 
-tab1 = st.tabs(
-    ["Gerar uma história"]
-)
+tab1 = st.tabs(["Gerar uma história"])[0]
+
 
 with tab1:
     st.subheader("Criar uma história")
