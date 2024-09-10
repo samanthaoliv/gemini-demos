@@ -222,6 +222,9 @@ with tab2:
         
         # Exibir o vídeo diretamente a partir da URL pública
         st.video(vide_desc_uri)
+
+        vide_desc_img = Part.from_uri(vide_desc_uri, mime_type="video/mp4")
+        
         try:
 
             st.write("Expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
