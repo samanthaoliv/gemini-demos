@@ -229,6 +229,19 @@ with tab2:
 
         try:
 
+
+            with tab2:
+
+                prompt = st.text_input(
+                "Prompt a ser enviado ao Gemini",
+                key="prompt",
+                value="Descreva o que está acontecendo no vídeo,separando as materias apresentadas, criando materias curtas sobre cada uma delas.\n\n",
+            )
+                
+                st.write("Prompt utilizado:")
+                st.write(prompt)
+
+
             st.write("Expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
             prompt = """Descreva o que está acontecendo no vídeo,separando as materias apresentadas, criando materias curtas sobre cada uma delas. \n
 
@@ -250,10 +263,6 @@ with tab2:
                             except Exception as e:
                                 st.error(f"Erro ao gerar descrição: {e}")
                        
-
-            with tab2:
-                st.write("Prompt utilizado:")
-                st.write(prompt)
 
         except Exception as e:
             st.error(f"Ocorreu um erro ao processar o vídeo: {e}")
