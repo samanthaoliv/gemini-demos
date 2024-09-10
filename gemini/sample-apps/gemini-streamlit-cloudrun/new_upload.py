@@ -1,3 +1,7 @@
+# pylint: disable=line-too-long,invalid-name
+
+
+
 import os
 from typing import List, Tuple, Union
 
@@ -10,7 +14,6 @@ from vertexai.generative_models import (
     GenerativeModel,
     HarmBlockThreshold,
     HarmCategory,
-    Part,
 )
 
 PROJECT_ID = os.environ.get("GCP_PROJECT")
