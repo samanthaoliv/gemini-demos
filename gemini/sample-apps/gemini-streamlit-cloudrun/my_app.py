@@ -231,7 +231,7 @@ with tab2:
 
             st.write("Expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
             prompt = st.text_input(
-                "Prompt a ser enviado para o Gemini. \n", key = "prompt", value = "Descreva o que está acontecendo no vídeo,separando as materias apresentadas, criando materias curtas sobre cada uma delas. \n"
+                "Prompt a ser enviado para o Gemini. \n", key = "prompt", value = "Descreva o que está acontecendo no vídeo,separando as materias apresentadas, criando materias curtas sobre cada uma delas. \n\n\n"
             )
 
             tab1, tab2 = st.tabs(["Resposta", "Prompt"])
