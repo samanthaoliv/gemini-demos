@@ -215,9 +215,9 @@ with tab2:
     with video_desc_tab:
         st.markdown("""O Gemini pode gerar a descrição do que está acontecendo no vídeo:""")
 
-        vide_desc_uri = "gs://videos-news/*.mp4"
+        vide_desc_uri = "gs://videos-news/Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4"
 
-        video_bytes = download_blob_into_memory("videos-news", "*.mp4")
+        video_bytes = download_blob_into_memory("videos-news", "Adolescente filha de brasileiros está desaparecida em Nova Jersey.mp4")
         st.video(video_bytes)
         vide_desc_img = Part.from_uri(vide_desc_uri, mime_type="video/mp4")
         try:
