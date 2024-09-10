@@ -215,16 +215,18 @@ with tab2:
     with video_desc_tab:
         st.markdown("""O Gemini pode gerar a descrição do que está acontecendo no vídeo:""")
 
-        vide_desc_uri = "gs://videos-news/Jornal da Alterosa - 06 09 2024.mp4"
+        gcs_uri = "gs://videos-news/Jornal da Alterosa - 06 09 2024.mp4"
 
-        video_bytes = download_blob_into_memory("videos-news", "Jornal da Alterosa - 06 09 2024.mp4")
-        st.video(video_bytes)
-        vide_desc_img = Part.from_uri(vide_desc_uri, mime_type="video/mp4")
+        # Usar a função get_storage_url para converter o URI GCS para uma URL pública
+        vide_desc_uri = get_storage_url(gcs_uri)
+        
+        # Exibir o vídeo diretamente a partir da URL pública
+        st.video(vide_desc_uri)
         try:
 
             st.write("Expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
             prompt = """Descreva o que está acontecendo no vídeo,separando as materias apresentadas, criando materias curtas sobre cada uma delas. \n
-                    
+
                     """
             tab1, tab2 = st.tabs(["Resposta", "Prompt"])
             vide_desc_description = st.button(
