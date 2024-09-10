@@ -223,10 +223,8 @@ with tab2:
         try:
 
             st.write("Expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
-            prompt = """Descreva o que está acontecendo no vídeo e escreva uma materia curta de jornal: \n
-                    - O que aconteceu? \n
-                    - quem são as pessoas envolvidas? \n
-                    - Onde aconteceu?
+            prompt = """Descreva o que está acontecendo no vídeo,separando as materias apresentadas, criando materias curtas sobre cada uma delas. \n
+                    
                     """
             tab1, tab2 = st.tabs(["Resposta", "Prompt"])
             vide_desc_description = st.button(
