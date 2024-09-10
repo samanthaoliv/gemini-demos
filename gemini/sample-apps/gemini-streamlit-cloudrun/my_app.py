@@ -237,10 +237,7 @@ with tab2:
                 key="prompt",
                 value="Descreva o que está acontecendo no vídeo,separando as materias apresentadas, criando materias curtas sobre cada uma delas.\n\n",
             )
-                
-                st.write("Prompt utilizado:")
-                st.write(prompt)
-
+            
 
             st.write("Expectativa: Escrever um texto sobre o conteúdo do vídeo, em formato de notícia.")
             prompt = """Descreva o que está acontecendo no vídeo,separando as materias apresentadas, criando materias curtas sobre cada uma delas. \n
@@ -250,6 +247,15 @@ with tab2:
             vide_desc_description = st.button(
                 "Gerar descrição do vídeo", key="vide_desc_description"
             )
+
+            with tab2:
+
+                prompt = st.text_input(
+                "Prompt a ser enviado ao Gemini",
+                key="prompt",
+                value="Descreva o que está acontecendo no vídeo,separando as materias apresentadas, criando materias curtas sobre cada uma delas.\n\n",
+            )
+
 
             with tab1:
                 if vide_desc_description and prompt:
