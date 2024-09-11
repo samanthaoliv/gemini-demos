@@ -81,7 +81,7 @@ def get_storage_url(gcs_uri: str) -> str:
     return "https://storage.googleapis.com/" + gcs_uri.split("gs://")[1]
 
 
-st.header("Gemini Demos Muito Legais", divider="rainbow")
+st.header("Demos Gemini", divider="rainbow")
 gemini_15_flash, gemini_15_pro = load_models()
 
 tab1, tab2 = st.tabs(
@@ -244,7 +244,7 @@ with tab2:
                     ):
                         
                             try:
-                                response = get_gemini_response(selected_model, [prompt, vide_desc_img])  # Somente o prompt
+                                response = get_gemini_response(selected_model, [prompt, vide_desc_uri])  # Somente o prompt
                                 st.markdown(response)
                             except Exception as e:
                                 st.error(f"Erro ao gerar descrição: {e}")
