@@ -244,7 +244,7 @@ with tab2:
                     ):
                         
                             try:
-                                response = get_gemini_response(selected_model, [prompt, vide_desc_uri])  # Somente o prompt
+                                response = get_gemini_response(selected_model, [prompt, gcs_uri])  # Somente o prompt
                                 st.markdown(response)
                             except Exception as e:
                                 st.error(f"Erro ao gerar descrição: {e}")
