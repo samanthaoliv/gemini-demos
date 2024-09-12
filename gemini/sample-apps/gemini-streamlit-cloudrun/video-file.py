@@ -52,7 +52,7 @@ if uploaded_file is not None:
     output_filename = f"resumo_{video_filename}.txt"
 
     # Aguarda a geração do arquivo de saída (com timeout)
-    timeout = 60  # Tempo máximo de espera em segundos
+    timeout = 120  # Tempo máximo de espera em segundos
     start_time = time.time()
     while not output_file_exists(output_filename):
         if time.time() - start_time > timeout:
