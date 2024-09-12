@@ -67,4 +67,4 @@ if uploaded_file is not None:
         with open("output.txt", "r", encoding="utf-8") as f:
             output_text = f.read()
         st.subheader("Resumo do Vídeo:")
-        st.text(output_text)
+        st.write(output_text)
