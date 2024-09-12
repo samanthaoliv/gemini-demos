@@ -6,18 +6,19 @@ import time
 BUCKET_NAME = 'videos-news'
 OUTPUT_BUCKET_NAME = 'output-news'
 
-def upload_blob(source_file_name, destination_blob_name):
+def upload_blob(source_file, destination_blob_name):
     """Uploads a file to the bucket."""
     storage_client = storage.Client()
     bucket = storage_client.bucket(BUCKET_NAME)
 
     blob = bucket.blob(destination_blob_name)
-    blob.upload_from_filename(source_file_name)
+    
+    # Usando upload_from_file() para lidar com o arquivo carregado em memória
+    blob.upload_from_file(source_file, rewind=True)
 
-    print(f"Arquivo {source_file_name} enviado para gs://{BUCKET_NAME}/{destination_blob_name}")
+    print(f"Arquivo enviado para gs://{BUCKET_NAME}/{destination_blob_name}")
 
-
-    # Função para verificar se o arquivo de saída existe
+# Função para verificar se o arquivo de saída existe
 def output_file_exists(output_filename):
     """Checks if the output file exists in the output bucket."""
     storage_client = storage.Client()
@@ -35,8 +36,8 @@ def download_blob(source_blob_name, destination_file_name):
     blob.download_to_filename(destination_file_name)
 
     print(f"Blob {source_blob_name} baixado para {destination_file_name}.")
-    
-    # Interface do Streamlit
+
+# Interface do Streamlit
 st.title("Gerador de Resumo de Vídeo")
 
 uploaded_file = st.file_uploader("Escolha um arquivo de vídeo", type=["mp4"])
@@ -48,7 +49,6 @@ if uploaded_file is not None:
 
     # Monta o nome do arquivo de saída
     output_filename = f"resumo_{video_filename}.txt"
-
 
     # Aguarda a geração do arquivo de saída (com timeout)
     timeout = 60  # Tempo máximo de espera em segundos
