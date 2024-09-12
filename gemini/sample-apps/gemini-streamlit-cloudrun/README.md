@@ -50,7 +50,7 @@ To run the Streamlit Application locally (on Cloud Shell), we need to perform th
    In Cloud Shell, execute the following command:
 
    ```bash
-   streamlit run app.py \
+   streamlit run video-file.py \
      --browser.serverAddress=localhost \
      --server.enableCORS=false \
      --server.enableXsrfProtection=false \
