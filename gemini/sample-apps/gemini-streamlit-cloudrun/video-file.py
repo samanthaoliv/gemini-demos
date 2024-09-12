@@ -67,5 +67,5 @@ if uploaded_file is not None:
         # Lê o conteúdo do arquivo e exibe no Streamlit
         with open("output.txt", "r", encoding="utf-8") as f:
             output_text = f.read()
-        st.subheader("Resumo do Vídeo:")
+        st.subheader("Notícias:")
         st.write(output_text)
