@@ -38,7 +38,8 @@ def download_blob(source_blob_name, destination_file_name):
     print(f"Blob {source_blob_name} baixado para {destination_file_name}.")
 
 # Interface do Streamlit
-st.title("Gerador de Resumo de Vídeo")
+st.title("Gerador de Noticías")
+st.subheader("O objetivo dessa aplicação é gerar notícias a partir de vídeos.")
 
 uploaded_file = st.file_uploader("Escolha um arquivo de vídeo. (MP4)", type=["mp4"])
 
