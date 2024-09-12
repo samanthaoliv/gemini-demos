@@ -34,8 +34,8 @@ def download_blob(source_blob_name, destination_file_name):
     blob = bucket.blob(source_blob_name)
     blob.download_to_filename(destination_file_name)
 
-    print(f"Blob {source_blob_name}
- baixado para {destination_file_name}.")
+    print(f"Blob {source_blob_name})
+    baixado para {destination_file_name}.")
     
     # Interface do Streamlit
 st.title("Gerador de Resumo de Vídeo")
