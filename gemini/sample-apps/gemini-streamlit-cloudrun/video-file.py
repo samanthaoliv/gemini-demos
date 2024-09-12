@@ -40,7 +40,7 @@ def download_blob(source_blob_name, destination_file_name):
 # Interface do Streamlit
 st.title("Gerador de Resumo de Vídeo")
 
-uploaded_file = st.file_uploader("Escolha um arquivo de vídeo", type=["mp4"])
+uploaded_file = st.file_uploader("Escolha um arquivo de vídeo. (MP4)", type=["mp4"])
 
 if uploaded_file is not None:
     # Faz o upload do vídeo para o bucket
