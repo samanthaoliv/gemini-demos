@@ -7,4 +7,4 @@ COPY . ./
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT ["streamlit", "run", "my_app.py", "--server.port=8080", "--server.address=0.0.0.0"]
+ENTRYPOINT ["streamlit", "run", "video-file.py", "--server.port=8080", "--server.address=0.0.0.0"]
